@@ -7,49 +7,45 @@
 <link href="./css/bulma.css" rel="stylesheet" />
 <link href="./css/stili.css" rel="stylesheet" />
 
-<script src="./js/jquerry-3.2.1.min.js" type="text/javascript"></script>
+<script src="./js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="./js/task.js" type="text/javascript"></script>
 
-<script src="./js/boot.js" type="text/javascript"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <title>WebApp</title>
 </head>
 <body>
 	<!-- Questo verrà nascosto -->
-	<article class="message is-danger">
+	<article class="message is-danger" id="errors">
 		<div class="message-header"><p>È impossibile usare questo applicativo</p></div>
-		<div class="message-body">
+		<div class="message-body content">
 			<p>Sono stati rilevati i seguenti errori durante il caricamento</p>
 			<ul>
 				<li id="error1">Non è supportato il JavaScript.</li>
-				<li id="error2">Non è abilitato il "local storage".</li>
-				<li id="error3">Non è stato rilevato JQuerry :P.</li>
+				<li id="error2">Su questo Browser è impossibile accedere direttamente al LocalStorage, considerare l'idea di eseguire un server HTTP sulla cartella</li>
+				<li id="error3">Non è abilitato il "local storage".</li>
+				<li id="error4">Non è stato rilevato JQuerry :P.</li>
 			</ul>
 			<p>Se pensi sia un errore contantta l'amministratore di sistema</p>
 		</div>
 	</article>
-
+	<!-- Fine parte da nascodere -->
 
 	<header class="container">
 		<h1 class="title">TODO List</h1>
 		<h2 class="subtitle">A very simple TODO list</h2>
 	</header>
 	<div id="testa" class="columns">
-		<div class="column">
-			<h2 class="title is-2">In orario</h2>
-		</div>
-		<div class="column">
-			<h2 class="title is-2">In ritardo</h2>
-		</div>
-		<div class="column">
-			<h2 class="title is-2">Terminati</h2>
-		</div>
+		
+		
+		
 	</div>
 	<div id="pricipale" class="columns">
 		<section id="orario" class="column">
+			<h1 class="title is-1">In orario</h1>
 			<ul class="listaPromemoria">
 				<li class="promemoria">
-					<h1 class="title is-2">Promemoria</h1>
+					<h3 class="title is-3">Promemoria</h3>
 					<h6 class="subtitle is-6">
 						Scade il <span>23/04/2017</span>
 					</h6>
@@ -64,18 +60,58 @@
 				<li class="promemoria"></li>
 			</ul>
 		</section>
+
 		<section id="scaduti" class="column">
+			<h1 class="title is-1">In ritardo</h1>
 			<ul class="listaPromemoria">
 				<li class="promemoria"></li>
 				<li class="promemoria"></li>
 			</ul>
 		</section>
+
 		<section id="terminati" class="column">
+			<h1 class="title is-1">Terminati</h1>
+
 			<ul class="listaPromemoria">
 				<li class="promemoria"></li>
 				<li class="promemoria"></li>
 			</ul>
 		</section>
 	</div>
+	<div id="campi">
+		<form action="" method="post">
+		        <div class="field">
+		                <label class="label">Nome attività</label>
+		                <p class="control">
+							<input class="input" type="text" placeholder="Nome attività">
+						</p>
+		        </div>
+		        <div class="field">
+		                <label class="label">Descrizione attività</label>
+		                <p class="control">
+							 <textarea style="resize: none;" class="textarea" placeholder="Inserire una descrizione"></textarea>
+		                </p>
+		        </div>
+		        <div class="field">
+		                <label class="label">Data di scadenza</label>
+		                <p class="control">
+		       					<input class="input" type="date" placeholder="Formato gg/MM/aaaa">
+		                </p>
+		        </div>
+		        <div class="field">
+		                <label class="label">Ora di scadenza</label>
+		                <p class="control">
+		       					<input class="input" type="time" placeholder="Formato oo:mm">
+		                </p>
+		        </div>
+		        <div class="field">
+		                <p class="control">
+							<button class="button is-primary">Aggiungi</button>		                
+						</p>
+		        </div>
+		</form>
+	</div>
+	
+	<script src="./js/boot.js" type="text/javascript"></script>
 </body>
 </html>

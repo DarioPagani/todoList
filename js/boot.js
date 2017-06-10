@@ -5,8 +5,24 @@
  */
 
 // TODO Scrivere questo file
-if(localStorage === undefined)
+
+document.getElementById("error1").remove();
+
+try
 {
-	alert("Questa piattaforma non supporta il LocalStorage");
-	return -1;
+	if(localStorage === undefined)
+		throw new Error("Questa piattaforma non supporta il LocalStorage");
+	else
+		document.getElementById("error3").remove();
 }
+catch(errore)
+{
+	throw erroe;
+}
+document.getElementById("error2").remove();
+
+if($ === undefined)
+	throw new Error("No JQuerry relevated!");
+
+document.getElementById("error4").remove();
+document.getElementById("errors").remove();
