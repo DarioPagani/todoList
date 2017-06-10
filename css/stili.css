@@ -1,17 +1,6 @@
 /******************* STILI PER IL "TASK" **********************/
-li.promemoria
-{
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-bottom: 10px;
-}
 
-li.promemoria p
+li.promemoria .card-content .content
 {
-	text-align: justify;
-}
-
-li.promemoria h6 span
-{
-	color: orange;	
+	text-align: justify;	
 }

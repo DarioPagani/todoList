@@ -1,7 +1,7 @@
 /** Migliarino Pisano, li 09/06/2017
  * Questo file contiene le istruzioni
  * @author: Dario Pagani <dario.pagani@itispisa.gov.it>, Nordine Oubihi <nordine.oubihi@itispisa.gov.it>
- * @version: 0.01a
+ * @version: 0.05a
  */
 
 // TODO Scrivere questo file
@@ -17,7 +17,7 @@ try
 }
 catch(errore)
 {
-	throw erroe;
+	throw errore;
 }
 document.getElementById("error2").remove();
 
@@ -26,3 +26,19 @@ if($ === undefined)
 
 document.getElementById("error4").remove();
 document.getElementById("errors").remove();
+
+// Memoria globale
+var inOrario	= new Array();
+var inRitardo	= new Array();
+var scaduti		= new Array();
+
+// Tento di recuperare dalla memoria locale della roba
+if(localStorage.getItem("inOrario") !== null)
+	inOrario = JSON.parse('[' + localStorage.getItem("inOrario") + ']');
+
+if(localStorage.getItem("inRitardo") !== null)
+	inOrario = JSON.parse('[' + localStorage.getItem("inRitardo") + ']');
+
+if(localStorage.getItem("inRitardo") !== null)
+	inOrario = JSON.parse('[' + localStorage.getItem("inRitardo") + ']');
+
