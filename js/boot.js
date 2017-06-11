@@ -42,3 +42,6 @@ if(localStorage.getItem("inRitardo") !== null)
 if(localStorage.getItem("inRitardo") !== null)
 	inOrario = JSON.parse('[' + localStorage.getItem("inRitardo") + ']');
 
+// Configurazione dei campi di input in basso
+$.datepicker.setDefaults( $.datepicker.regional[ "it" ] ); 
+$("#data").datepicker({dateFormat: "dd/mm/yy",});
