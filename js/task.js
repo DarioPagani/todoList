@@ -13,50 +13,52 @@ var stati =
 	eliminato: 3,
 };
 
-function Task(nome, descrizone, scadenza)
+class Task
 {
-	/****** METODI **********/
-	// TODO Scrivere i metodi
-	this.onScadenza = function(sopra) 
+	constructor(nome, descrizione, scadenza)
 	{
-		sopra.stato = stati.inRitardo
-		console.log("sono qua!");
-	};
+		/****** COSTRUTTORE *******/
+		// TODO Scrivere il costruttore :P
+		this.nome = nome;
+		this.descrizione = descrizione;
+		this.scadenza = scadenza;
+		this.stato = stati.inOrario;
+		
+		// È una scadenza valida?
+		if(this.scadenza.getTime() <= (new Date()).getTime())
+			throw new Error("La data di scadenza è già passata!");
+		
+		// Aggiungo un ID da utilizzare poi
+		var i;
+		for(i = 0; i < 10 && $("#" + this.id)[0] !== undefined; i++)
+			this.id = this.scadenza.getTime().toString() + (new Date()).getTime().toString();
+		
+		if(i >= 10)
+			throw new Error("Impossibile generare un ID univoco al momento!")
+	}
 	
-	this.setTitolo = function() {;};
-	
-	this.toString = function() {;};
-	this.toStringHTML = function(sopra) 
+	// Metodo per avviare il timer, controlla se non è già stato avviato in primis
+	initializeTimer()
 	{
-		return
-			"<div class=\"card\">" +
+		if(this.timer !== undefined)
+			return -1;
+		
+		this.timer = window.setTimeout(this.onScadenza, this.scadenza.getTime() - (new Date()).getTime(), this);
+	}
+	
+	toStringHTML(sopra) 
+	{
+		return "<div class=\"card\">" +
 				"<header class=\"card-header\">" +
-					"<p class=\"card-header-title\">" + sopra.nome + "</p>"
+					"<p class=\"card-header-title\">" + this.nome + "</p>"
 				"</header>" +
 				// TODO Finire l'impaginazione
 			"</div>";
-	};
+	}
 	
-	
-	/****** COSTRUTTORE *******/
-	// TODO Scrivere il costruttore :P
-	this.nome = nome;
-	this.descrizione = descrizone;
-	this.scadenza = scadenza;
-	this.stato = stati.inOrario;
-	
-	// È una scadenza valida?
-	if(this.scadenza.getTime() <= (new Date()).getTime())
-		throw new Error("La data di scadenza è già passata!");
-	
-	// Aggiungo un ID da utilizzare poi
-	var i;
-	for(i = 0; i < 10 && $("#" + this.id)[0] !== undefined; i++)
-		this.id = this.scadenza.getTime().toString() + (new Date()).getTime().toString();
-	
-	if(i >= 10)
-		throw new Error("Impossibile generare un ID univoco al momento!")
-	
-	// Avvio 
-	window.setTimeout(this.onScadenza, this.scadenza.getTime() - (new Date()).getTime(), this);
+	// Roba statica
+	static parse(toParse)
+	{
+		
+	}
 }
