@@ -121,7 +121,7 @@ class Task
 	move(a, b)
 	{
 		if(b === undefined)
-			$("#" + b.id) = this
+			b = this
 
 		$("#" + b.id).hide('fade').detach().appendTo("#"+a).end().show('fade');
 
