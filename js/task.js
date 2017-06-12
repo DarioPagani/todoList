@@ -1,11 +1,11 @@
-/** Migliarino Pisano, li 09/06/2017 
- * Questo file contiene la classe "Task" per gestire la gestione di un singolo 
+/** Migliarino Pisano, li 09/06/2017
+ * Questo file contiene la classe "Task" per gestire la gestione di un singolo
  *  task
  *  @author: Dario Pagani <dario.pagani@itispisa.gov.it>, Nordine Oubihi <nordine.oubihi@itispisa.gov.it>
  *  @version: 0.5a
  */
 
-var stati = 
+var stati =
 {
 	inOrario: 0,
 	inRitardo: 1,
@@ -23,25 +23,25 @@ class Task
 		this.descrizione = descrizione;
 		this.scadenza = scadenza;
 		this.stato = stati.inOrario;
-		
+
 		// È una scadenza valida?
 		if(this.scadenza.getTime() <= (new Date()).getTime())
 			throw new Error("La data di scadenza è già passata!");
-		
+
 		// Aggiungo un ID da utilizzare poi
 		this.id = this.scadenza.getTime().toString() + (new Date()).getTime().toString();
 	}
-	
+
 	// Metodo per avviare il timer, controlla se non è già stato avviato in primis
 	initializeTimer()
 	{
 		if(this.timer !== undefined)
 			return -1;
-		
+
 		this.timer = window.setTimeout(this.onScadenza, this.scadenza.getTime() - (new Date()).getTime(), this);
 	}
-	
-	toStringHTML() 
+
+	toStringHTML()
 	{
 		return "<div class=\"card\" id=\""+ this.id + "\">" +
 				"<header class=\"card-header\">" +
@@ -51,9 +51,9 @@ class Task
 						"<div class=\"content\">" +
 							this.descrizione.toString() +
 							"<br>" +
-							"<small>Scade il " + this.scadenza.toString() + "</small>" + 
-						"</div>" + 
-					"</div>" + 
+							"<small>Scade il " + this.scadenza.toString() + "</small>" +
+						"</div>" +
+					"</div>" +
 				"<footer class=\"card-footer\">" +
 					"<a class=\"card-footer-item button is-danger is-outlined delete_\">" +
 							"<span class=\"icon is-small\"><i class=\"fa fa-trash\"></i></span>"+
@@ -67,39 +67,39 @@ class Task
 							"<span class=\"icon is-small\"><i class=\"fa fa-check\"></i></span>"+
 							"<span>Terminato</span>"+
 					"</a>"+
-				"</footer>" + 
+				"</footer>" +
 			"</div>";
 	}
-	
+
 	addToHTML(a)
 	{
 		/*if(typeof a !== "String")
 			throw new Error("First parm MUST be a String()!");*/
-			
-		
-		$("#"+ a + " .listaPromemoria").append("<li>"+x.toStringHTML()+"</li>");
+
+
+		$("#"+ a + " .listaPromemoria").append("<li>"+this.toStringHTML()+"</li>");
 		this.elementoHTML = $("#" + this.id.toString());
 		this.elementoHTML[0].padre = this;
 		console.log(this.elementoHTML);
 	}
-	
+
 	inizializeHTML()
 	{
 		$("#" + this.id.toString()).padre = this;
 		$("#" + this.id.toString() + " .delete_").click(this.finalize);
 	}
-	
+
 	finalize(a)
-	{	
+	{
 		console.log(self.id+"Hello");
 		$("#" + self.id-toString()).remove();
 		clearTimeout(self.timer);
 	}
-	
+
 	// Roba statica
 	static parse(toParse)
 	{
-		
+
 	}
 
 	static inOrario(){return 3;}

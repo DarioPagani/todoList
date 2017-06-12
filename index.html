@@ -3,13 +3,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link href="./css/bulma.css" rel="stylesheet" />
 <link href="./css/stili.css" rel="stylesheet" />
 
 <script src="./js/jquery-3.2.1.min.js" type="text/javascript"></script>
 <script src="./js/task.js" type="text/javascript"></script>
 <script src="./js/addTask.js" type="text/javascript"></script>
+<script src="./js/jquery.validate.min.js" type="text/javascript"></script>
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -40,7 +40,7 @@
 	<!-- Fine parte da nascodere -->
 
 	<!-- Titolo -->
-	<header class="container">
+	<header class="container has-text-centered">
 		<h1 class="title">TODO List</h1>
 		<h2 class="subtitle">A very simple TODO list</h2>
 	</header>
@@ -78,7 +78,7 @@
 									<a class="card-footer-item button is-success is-outlined">
 										<span class="icon is-small"><i class="fa fa-check"></i></span>
 										<span>Terminato</span>
-									</a> 
+									</a>
 
 								</footer>
 							</div>
@@ -103,12 +103,13 @@
 
 			<!-- Form di inserimento -->
 			<div id="campi">
-				<form action="null.php" method="post" onsubmit="return addTask()">
+				<form id="campiInner" action="null.php" method="post" onsubmit="return addTask()">
 					<div class="field is-horizontal">
 						<div class="field-label is-large"><label class="label">Nome attività</label></div>
 						<div class="field-body"><div class="field">
 							<p class="control">
-								<input class="input is-large" type="text" placeholder="Nome attività">
+								<input id="attivita" class="input is-large" type="text" placeholder="Nome attività">
+								<p class="help is-danger" id="attivita_p"></p>
 							</p>
 						</div></div>
 					</div>
@@ -118,9 +119,10 @@
 						</div>
 						<div class="field-body"><div class="field">
 							<p class="control">
-								<textarea style="resize: none;" class="textarea"
+								<textarea  id="descrizione" style="resize: none;" class="textarea"
 									placeholder="Inserire una descrizione"></textarea>
 							</p>
+							<p class="help is-danger" id="descrizione_p"></p>
 						</div></div>
 					</div>
 					<div class="field is-horizontal">
@@ -161,19 +163,19 @@
 			</div>
 		</div>
 	</section>
-	
+
 	<!-- Pop-out a video -->
 	<div class="modal" id="confirm">
 		<div class="modal-background"></div>
-		
+
 		<div class="modal-content">
 			<p>Hello!</p>
 		</div>
 	</div>
-	
+
 	<div class="modal" id="newTime">
 		<div class="modal-background"></div>
-		
+
 		<div class="modal-content">
 			<article class="message">
 				<div class="message-header">
@@ -181,7 +183,7 @@
 					<button class="delete"></button>
 				</div>
 				<div class="message-body">
-			
+
 					<form action="null.php" method="post">
 						<div class="field ">
 							<label class="label">Data di scadenza</label>
@@ -193,12 +195,12 @@
 						<div class="field-body">
 							<div class="field">
 								<p class="control">
-									<input id="ora" class="input" type="number" min="00" max="24" step="1" value ="00" placeholder="Formato oo:mm">
+									<input id="ora_" class="input" type="number" min="00" max="24" step="1" value ="00" placeholder="Formato oo:mm">
 								</p>
 							</div>
 							<div class="field">
 								<p class="control">
-									<input id="minuti" class="input" type="number" min="00" max="59" step="1" value ="00" placeholder="Formato oo:mm">
+									<input id="minuti_" class="input" type="number" min="00" max="59" step="1" value ="00" placeholder="Formato oo:mm">
 								</p>
 							</div>
 						</div>
@@ -214,14 +216,14 @@
 			</article>
 		</div>
 	</div>
-	
+
 	<div class="modal" id="eccezione">
 		<div class="modal-background" onclick="$('#eccezione').removeClass('is-active')"></div>
 		<div class="modal-content">
 			<article  class="message is-danger">
 				<div class="message-body content">
 					Si è verificata un'eccezione non gestita dal programma:
-						<blockquote id="errore">
+						<blockquote id="errore_">
 						Inserire qua l'errore!
 						</blockquote>
 					Se il problema persiste contattare l'amministratore di sistema.
