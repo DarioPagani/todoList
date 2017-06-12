@@ -43,7 +43,7 @@ class Task
 
 		console.log(this.scadenza.getTime() - (new Date()).getTime());
 
-		this.timer = setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this.elementoHTML);
+		this.timer = setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "scaduti", this);
 	}
 
 	toStringHTML()
@@ -110,21 +110,21 @@ class Task
 				});
 		$('#' + this.id).find(".ok_").click(this, function(a)
 				{
-					$(this).parent().parent()[0].padre.move("terminati", $(this).parent().parent());
+					$(this).parent().parent()[0].padre.move("terminati", a.data);
 				});
 	}
 
-	move(a, contx)
+	move(a, b)
 	{
-		if(contx === undefined)
-			contx = this;
+		if(b === undefined)
+			$("#" + b.id) = this
 
-		contx.elementoHTML.hide('fade').detach().appendTo("#"+a).end().show('fade');
+		$("#" + b.id).hide('fade').detach().appendTo("#"+a).end().show('fade');
 
 		if(a == "terminati")
 		{
-			contx.elementoHTML.find(".delay_").remove();
-			contx.elementoHTML.find(".ok_").remove();
+			$("#" + b.id).find(".delay_").remove();
+			$("#" + b.id).find(".ok_").remove();
 		}
 	}
 
