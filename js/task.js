@@ -38,16 +38,12 @@ class Task
 	{
 		if(this.timer !== undefined)
 			return -1;
-		
+
 			clearTimeout(this.timer);
 
 		console.log(this.scadenza.getTime() - (new Date()).getTime());
-<<<<<<< HEAD
-		this.timer = window.setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this);
+
 		this.timer = setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this.elementoHTML);
-=======
-		this.timer = window.setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "scaduti", this);
->>>>>>> 8989f240cbada22bf023ccf971eee202049c7ee3
 	}
 
 	toStringHTML()
@@ -68,10 +64,6 @@ class Task
 							"<span class=\"icon is-small\"><i class=\"fa fa-trash\"></i></span>"+
 							"<span>Elimina</span>"+
 						"</a>"+
-<<<<<<< HEAD
-						"<a class=\"card-footer-item button is-warning is-outlined\" onclick=\"" + ">" +
-=======
->>>>>>> 8989f240cbada22bf023ccf971eee202049c7ee3
 						"<a class=\"card-footer-item button is-warning is-outlined delay_\" onclick=\"" + ">" +
 							"<span class=\"icon is-small\"><i class=\"fa fa-clock-o\"></i></span>"+
 							"<span>Posticipa</span>"+
@@ -101,7 +93,6 @@ class Task
 					//a.elementoHTML.remove();
 					$(this).parent().parent()[0].padre.finalize();
 				});
-<<<<<<< HEAD
 
 		$('#' + this.id).find(".delay_").click(this, function(a)
 				{
@@ -116,12 +107,9 @@ class Task
 							a.data.initializeTimer();
 							$("#newTime").removeClass("is-active");
 						})
-=======
-				
 		$('#' + this.id).find(".ok_").click(this, function(a)
 				{
 					$(this).parent().parent()[0].padre.move("terminati", $(this).parent().parent());
->>>>>>> 8989f240cbada22bf023ccf971eee202049c7ee3
 				});
 	}
 
@@ -129,9 +117,9 @@ class Task
 	{
 		if(contx === undefined)
 			contx = this;
-	
+
 		contx.elementoHTML.hide('fade').detach().appendTo("#"+a).end().show('fade');
-		
+
 		if(a == "terminati")
 		{
 			contx.elementoHTML.find(".delay_").remove();
@@ -144,7 +132,7 @@ class Task
 		this.elementoHTML.remove();
 		clearTimeout(this.timer);
 	}
-	
+
 
 	// Roba statica
 	static parse(toParse)
