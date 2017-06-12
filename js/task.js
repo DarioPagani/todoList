@@ -106,7 +106,8 @@ class Task
 							a.data.elementoHTML.find("small").text("scade il " + f.toLocaleString());
 							a.data.initializeTimer();
 							$("#newTime").removeClass("is-active");
-						})
+						});
+				});
 		$('#' + this.id).find(".ok_").click(this, function(a)
 				{
 					$(this).parent().parent()[0].padre.move("terminati", $(this).parent().parent());
