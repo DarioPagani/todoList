@@ -39,8 +39,11 @@ class Task
 		if(this.timer !== undefined)
 			return -1;
 		
+			clearTimeout(this.timer);
+
 		console.log(this.scadenza.getTime() - (new Date()).getTime());
 		this.timer = window.setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this);
+		this.timer = setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this.elementoHTML);
 	}
 
 	toStringHTML()
@@ -62,6 +65,7 @@ class Task
 							"<span>Elimina</span>"+
 						"</a>"+
 						"<a class=\"card-footer-item button is-warning is-outlined\" onclick=\"" + ">" +
+						"<a class=\"card-footer-item button is-warning is-outlined delay_\" onclick=\"" + ">" +
 							"<span class=\"icon is-small\"><i class=\"fa fa-clock-o\"></i></span>"+
 							"<span>Posticipa</span>"+
 						"</a>"+
@@ -90,6 +94,21 @@ class Task
 					//a.elementoHTML.remove();
 					$(this).parent().parent()[0].padre.finalize();
 				});
+
+		$('#' + this.id).find(".delay_").click(this, function(a)
+				{
+					$("#newTime").addClass("is-active");
+
+					$("#newTime").find("button").click(a.data, function(a)
+						{
+							var miaData = $("#data_").val().split("/");
+							var f = new Date(miaData[2], miaData[1] - 1, miaData[0]);
+							a.data.scadenza = f;
+							a.data.elementoHTML.find("small").text("scade il " + f.toLocaleString());
+							a.data.initializeTimer();
+							$("#newTime").removeClass("is-active");
+						})
+				});
 	}
 
 	move(a, contx)
@@ -107,6 +126,7 @@ class Task
 		clearTimeout(this.timer);
 	}
 	
+
 	// Roba statica
 	static parse(toParse)
 	{

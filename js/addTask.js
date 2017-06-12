@@ -47,7 +47,8 @@ function addTask()
 	catch(e)
 	{
 		console.error("Qalcosa non ha funzionato:\n"+e.toString());
-
+		$("#errore_").text(e.toString());
+		$("#eccezione").addClass("is-active")
 	}
 
 	// Ritorna sempre false per il PHP
