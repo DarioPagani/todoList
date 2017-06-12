@@ -30,6 +30,7 @@ class Task
 
 		// Aggiungo un ID da utilizzare poi
 		this.id = this.scadenza.getTime().toString() + (new Date()).getTime().toString();
+		this.initializeTimer();
 	}
 
 	// Metodo per avviare il timer, controlla se non è già stato avviato in primis
@@ -37,8 +38,9 @@ class Task
 	{
 		if(this.timer !== undefined)
 			return -1;
-
-		this.timer = window.setTimeout(this.onScadenza, this.scadenza.getTime() - (new Date()).getTime(), this);
+		
+		console.log(this.scadenza.getTime() - (new Date()).getTime());
+		this.timer = window.setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this);
 	}
 
 	toStringHTML()
@@ -81,21 +83,30 @@ class Task
 		this.elementoHTML = $("#" + this.id.toString());
 		this.elementoHTML[0].padre = this;
 		console.log(this.elementoHTML);
+
+		// Inzializzazione dei pulsanti
+		$('#' + this.id).find(".delete_").click(this, function(a)
+				{
+					//a.elementoHTML.remove();
+					$(this).parent().parent()[0].padre.finalize();
+				});
 	}
 
-	inizializeHTML()
+	move(a, contx)
 	{
-		$("#" + this.id.toString()).padre = this;
-		$("#" + this.id.toString() + " .delete_").click(this.finalize);
+		if(contx === undefined)
+			contx = this;
+		else
+			console.log(contx);
+		contx.elementoHTML.hide('fade').detach().appendTo("#"+a).end().show('fade');
 	}
 
 	finalize(a)
 	{
-		console.log(self.id+"Hello");
-		$("#" + self.id-toString()).remove();
-		clearTimeout(self.timer);
+		this.elementoHTML.remove();
+		clearTimeout(this.timer);
 	}
-
+	
 	// Roba statica
 	static parse(toParse)
 	{
