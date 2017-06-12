@@ -40,7 +40,7 @@ class Task
 			return -1;
 		
 		console.log(this.scadenza.getTime() - (new Date()).getTime());
-		this.timer = window.setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "ritardo", this);
+		this.timer = window.setTimeout(this.move, this.scadenza.getTime() - (new Date()).getTime(), "scaduti", this);
 	}
 
 	toStringHTML()
@@ -61,11 +61,11 @@ class Task
 							"<span class=\"icon is-small\"><i class=\"fa fa-trash\"></i></span>"+
 							"<span>Elimina</span>"+
 						"</a>"+
-						"<a class=\"card-footer-item button is-warning is-outlined\" onclick=\"" + ">" +
+						"<a class=\"card-footer-item button is-warning is-outlined delay_\" onclick=\"" + ">" +
 							"<span class=\"icon is-small\"><i class=\"fa fa-clock-o\"></i></span>"+
 							"<span>Posticipa</span>"+
 						"</a>"+
-						"<a class=\"card-footer-item button is-success is-outlined\">"+
+						"<a class=\"card-footer-item button is-success is-outlined\ ok_\">"+
 							"<span class=\"icon is-small\"><i class=\"fa fa-check\"></i></span>"+
 							"<span>Terminato</span>"+
 					"</a>"+
@@ -90,15 +90,25 @@ class Task
 					//a.elementoHTML.remove();
 					$(this).parent().parent()[0].padre.finalize();
 				});
+				
+		$('#' + this.id).find(".ok_").click(this, function(a)
+				{
+					$(this).parent().parent()[0].padre.move("terminati", $(this).parent().parent());
+				});
 	}
 
 	move(a, contx)
 	{
 		if(contx === undefined)
 			contx = this;
-		else
-			console.log(contx);
+	
 		contx.elementoHTML.hide('fade').detach().appendTo("#"+a).end().show('fade');
+		
+		if(a == "terminati")
+		{
+			contx.elementoHTML.find(".delay_").remove();
+			contx.elementoHTML.find(".ok_").remove();
+		}
 	}
 
 	finalize(a)
