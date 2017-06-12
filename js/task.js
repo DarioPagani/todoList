@@ -51,7 +51,7 @@ class Task
 						"<div class=\"content\">" +
 							this.descrizione.toString() +
 							"<br>" +
-							"<small>Scade il " + this.scadenza.toString() + "</small>" +
+							"<small>Scade il " + this.scadenza.toLocaleString() + "</small>" +
 						"</div>" +
 					"</div>" +
 				"<footer class=\"card-footer\">" +
