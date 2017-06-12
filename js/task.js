@@ -37,8 +37,6 @@ class Task
 	initializeTimer()
 	{
 		if(this.timer !== undefined)
-			return -1;
-
 			clearTimeout(this.timer);
 
 		console.log(this.scadenza.getTime() - (new Date()).getTime());
@@ -102,9 +100,15 @@ class Task
 						{
 							var miaData = $("#data_").val().split("/");
 							var f = new Date(miaData[2], miaData[1] - 1, miaData[0]);
+							f.setHours($("#ora_").val());
+							f.setMinutes($("#minuti_").val());
 							a.data.scadenza = f;
 							a.data.elementoHTML.find("small").text("scade il " + f.toLocaleString());
 							a.data.initializeTimer();
+
+							if(a.data.scadenza.getTime() > Date.now())
+								a.data.move("orario", a.data);
+
 							$("#newTime").removeClass("is-active");
 						});
 				});
