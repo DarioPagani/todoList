@@ -2,7 +2,7 @@
  * Questo file contiene la classe "Task" per gestire la gestione di un singolo 
  *  task
  *  @author: Dario Pagani <dario.pagani@itispisa.gov.it>, Nordine Oubihi <nordine.oubihi@itispisa.gov.it>
- *  @version: 0.05a
+ *  @version: 0.5a
  */
 
 var stati = 
@@ -29,12 +29,7 @@ class Task
 			throw new Error("La data di scadenza è già passata!");
 		
 		// Aggiungo un ID da utilizzare poi
-		var i;
-		for(i = 0; i < 10 && $("#" + this.id)[0] !== undefined; i++)
-			this.id = this.scadenza.getTime().toString() + (new Date()).getTime().toString();
-		
-		if(i >= 10)
-			throw new Error("Impossibile generare un ID univoco al momento!")
+		this.id = this.scadenza.getTime().toString() + (new Date()).getTime().toString();
 	}
 	
 	// Metodo per avviare il timer, controlla se non è già stato avviato in primis
@@ -46,14 +41,59 @@ class Task
 		this.timer = window.setTimeout(this.onScadenza, this.scadenza.getTime() - (new Date()).getTime(), this);
 	}
 	
-	toStringHTML(sopra) 
+	toStringHTML() 
 	{
-		return "<div class=\"card\">" +
+		return "<div class=\"card\" id=\""+ this.id + "\">" +
 				"<header class=\"card-header\">" +
-					"<p class=\"card-header-title\">" + this.nome + "</p>"
+					"<p class=\"card-header-title\">" + this.nome + "</p>" +
 				"</header>" +
-				// TODO Finire l'impaginazione
+					"<div class=\"card-content\">"+
+						"<div class=\"content\">" +
+							this.descrizione.toString() +
+							"<br>" +
+							"<small>Scade il " + this.scadenza.toString() + "</small>" + 
+						"</div>" + 
+					"</div>" + 
+				"<footer class=\"card-footer\">" +
+					"<a class=\"card-footer-item button is-danger is-outlined delete_\">" +
+							"<span class=\"icon is-small\"><i class=\"fa fa-trash\"></i></span>"+
+							"<span>Elimina</span>"+
+						"</a>"+
+						"<a class=\"card-footer-item button is-warning is-outlined\" onclick=\"" + ">" +
+							"<span class=\"icon is-small\"><i class=\"fa fa-clock-o\"></i></span>"+
+							"<span>Posticipa</span>"+
+						"</a>"+
+						"<a class=\"card-footer-item button is-success is-outlined\">"+
+							"<span class=\"icon is-small\"><i class=\"fa fa-check\"></i></span>"+
+							"<span>Terminato</span>"+
+					"</a>"+
+				"</footer>" + 
 			"</div>";
+	}
+	
+	addToHTML(a)
+	{
+		/*if(typeof a !== "String")
+			throw new Error("First parm MUST be a String()!");*/
+			
+		
+		$("#"+ a + " .listaPromemoria").append("<li>"+x.toStringHTML()+"</li>");
+		this.elementoHTML = $("#" + this.id.toString());
+		this.elementoHTML[0].padre = this;
+		console.log(this.elementoHTML);
+	}
+	
+	inizializeHTML()
+	{
+		$("#" + this.id.toString()).padre = this;
+		$("#" + this.id.toString() + " .delete_").click(this.finalize);
+	}
+	
+	finalize(a)
+	{	
+		console.log(self.id+"Hello");
+		$("#" + self.id-toString()).remove();
+		clearTimeout(self.timer);
 	}
 	
 	// Roba statica
@@ -61,4 +101,6 @@ class Task
 	{
 		
 	}
+
+	static inOrario(){return 3;}
 }
